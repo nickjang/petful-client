@@ -141,7 +141,8 @@ class Adoption extends Component {
                 name: {
                   value: '',
                   touched: false,
-                  submitted: person
+                  submitted: person,
+                  afterAdopting: this.state.name.afterAdopting
                 },
                 error: ''
               }
@@ -161,7 +162,8 @@ class Adoption extends Component {
       name: {
         value: name,
         touched: true,
-        submitted: this.state.name.submitted
+        submitted: this.state.name.submitted,
+        afterAdopting: this.state.name.afterAdopting
       }
     });
   }

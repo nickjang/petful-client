@@ -2,7 +2,7 @@ import config from '../config';
 
 const apiService = {
   getPeopleInLine() {
-    return fetch(`${config.API_ENDPOINT}/people`)
+    return fetch(`${config.REACT_APP_API_BASE}/people`)
       .then(res =>
         (!res.ok)
           ? res.json().then(e => Promise.reject(e))
@@ -11,7 +11,7 @@ const apiService = {
   },
 
   addPerson(name) {
-    return fetch(`${config.API_ENDPOINT}/people`, {
+    return fetch(`${config.REACT_APP_API_BASE}/people`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -26,7 +26,7 @@ const apiService = {
   },
 
   adopt(type) {
-    return fetch(`${config.API_ENDPOINT}/${type}`, {
+    return fetch(`${config.REACT_APP_API_BASE}/${type}`, {
       method: 'DELETE'
     })
       .then(res =>
@@ -37,7 +37,7 @@ const apiService = {
   },
 
   getNextPet(type) {
-    return fetch(`${config.API_ENDPOINT}/${type}`)
+    return fetch(`${config.REACT_APP_API_BASE}/${type}`)
       .then(res =>
         (!res.ok)
           ? res.json().then(e => Promise.reject(e))

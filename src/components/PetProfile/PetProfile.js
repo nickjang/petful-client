@@ -8,7 +8,7 @@ class PetProfile extends Component {
       return <p>None available for adoption</p>;
     return (
       <div className='pet-profile'>
-        <img src={this.props.imageURL} alt={`A picture of the ${this.props.breed} for adoption.`} />
+        <img src={this.props.imageURL} alt={`The ${this.props.breed} for adoption.`} />
         <section className='w-80 m-auto'>
           <h4 className='txt-center'>{this.props.name}</h4>
           <p className='txt-left'>Age: {this.props.age}</p>
