@@ -196,20 +196,23 @@ class Adoption extends Component {
   }
 
   componentDidMount() {
-    Promise.all([
-      apiService.getPeopleInLine(),
-      apiService.getNextPet('cat'),
-      apiService.getNextPet('dog')
-    ])
-      .then(res => {
-        this.setState({
-          peopleInFront: res[0].people,
-          petsInFront: {
-            cat: res[1],
-            dog: res[2]
-          }
-        },
-          () => this.handleOtherUsers(res[0].people, ''));
+    apiService.getPeopleInLine()
+      .then(({ people }) => {
+        Promise.all([
+          apiService.getNextPet('cat'),
+          apiService.getNextPet('dog')
+        ])
+          .then(res => {
+            this.setState({
+              peopleInFront: people,
+              petsInFront: {
+                cat: res[0],
+                dog: res[1]
+              }
+            },
+              () => this.handleOtherUsers(people, ''));
+          })
+          .catch((e) => { this.setState({ error: e.error }) });
       })
       .catch((e) => { this.setState({ error: e.error }) });
   }
@@ -226,20 +229,6 @@ class Adoption extends Component {
       <div className='flex-column al-center w-fit-content m-auto m-b-1'>
         <h2>Adoption</h2>
         <span className='error'>{this.state.error}</span>
-        {this.state.adoptedPet
-          ? <div className='lg-card txt-center'>
-            <p className='w-80'>{adoptedPetString}</p>
-            <PetProfile
-              age={this.state.adoptedPet.age}
-              breed={this.state.adoptedPet.breed}
-              description={this.state.adoptedPet.description}
-              gender={this.state.adoptedPet.gender}
-              imageURL={this.state.adoptedPet.imageURL}
-              name={this.state.adoptedPet.name}
-              story={this.state.adoptedPet.story}
-            />
-          </div>
-          : null}
         <p className='w-80 m-auto m-t-1'>People in line: {peopleInLineString}</p>
         <form className='m-auto m-t-1'>
           <label>To stand in line, enter your name: </label>
@@ -261,6 +250,20 @@ class Adoption extends Component {
           </div>
           <span className='error'>{this.state.name.touched && this.validateName()}</span>
         </form>
+        {this.state.adoptedPet
+          ? <div className='lg-card m-t-1 txt-center'>
+            <p className='w-80'>{adoptedPetString}</p>
+            <PetProfile
+              age={this.state.adoptedPet.age}
+              breed={this.state.adoptedPet.breed}
+              description={this.state.adoptedPet.description}
+              gender={this.state.adoptedPet.gender}
+              imageURL={this.state.adoptedPet.imageURL}
+              name={this.state.adoptedPet.name}
+              story={this.state.adoptedPet.story}
+            />
+          </div>
+          : null}
         <article className='pets'>
           <h3>Pets available for adoption: </h3>
           <section className='lg-card txt-center'>

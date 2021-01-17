@@ -12,7 +12,7 @@ class Root extends Component {
   render() {
     return (
       <div className='flex-column al-center w-80 m-auto m-b-1'>
-        <p classfName='description'>
+        <p className='description'>
           You can adopt a cat or a dog. When you go to the adoption page, you will only be
           shown a cat and dog that have been in the shelter the longest. You will also see a list of people in line.
           Enter your name to be added to the end of the line. When it is your turn, you can adopt a pet by clicking the
